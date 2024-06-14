@@ -1,0 +1,534 @@
+
+{% extends "base2pat.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+<!-- Cropperjs -->
+<link rel="stylesheet" href="{% static 'cropperjs/dist/cropper.min.css' %}">
+
+<style type="text/css">
+	.image-container{
+		max-width: 250px;
+		height: auto;
+		position: relative;
+	}
+	.field-heading{
+		color: #737373;
+	}
+	#id_confirm{
+		color: green;
+	}
+	#id_confirm:hover {
+		opacity: 0.3;
+	}
+	#id_cancel:hover {
+		opacity: 0.3;
+	}
+	#id_cancel{
+		color: red;
+	}
+	.material-icons{
+		font-size: 30px;
+	}
+	.material-icons:hover{
+		cursor: pointer;
+	}
+</style>
+
+
+ <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="container" id="id_loading_spinner" style="display: none">
+	<div class="d-flex flex-row mx-auto flex-grow-1 justify-content-center">
+		<div class="spinner-border text-primary" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+</div>
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+
+              <div class="image-container" id="id_image_container">
+	  				<img class="border border-dark rounded-circle img-fluid mx-auto profile-image" id="id_profile_image_display" src="{{user_profile.personal_info.photo.url}}" alt="codingwithmitch logo">
+					<div class="middle" id="id_middle_container">
+						<div class="text" id="id_text">Edit</div>
+					</div>
+		  		</div>
+
+              <div class="mb-2" id="id_image_crop_confirm">
+		  			<span id="id_cancel" class="material-icons">cancel</span>
+		  			<span id="id_confirm" class="material-icons">check</span>
+		  		</div>
+
+              <form id="crop_form" action="{% url 'user_profile:crop_image' user_id=request.user.id %}">{% csrf_token %}
+                  <input class="d-none" type="file" name="profile_image" id="id_profile_image" onchange="readURL(this)">
+              </form>
+              <h2>{{user_profile.last_name}} {{user_profile.first_name}}</h2>
+              <h3>{{user_profile.email}} </h3>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
+
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">Profile Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.last_name}} {{user_profile.first_name}} </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.email}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.personal_info.phone}}</div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Gender</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.personal_info.gender}} </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Date of birth</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.personal_info.dob|date:'Y-m-d'}} </div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Marital Status</div>
+                    {% if user_profile.personal_info.marital_status == False %}
+                        <div class="col-lg-9 col-md-8">Single</div>
+                     {% else %}
+                        <div class="col-lg-9 col-md-8">Married</div>
+                     {% endif %}
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Country</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.personal_info.country}} </div>
+                  </div>
+
+                  <h5 class="card-title">Vitals</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Height</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.height}} </div>
+                  </div>
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Weight</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.weight}} </div>
+                  </div>
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Blood Group</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.blood_group}} </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Blood Pressure</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.blood_pressure}} </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Blood Sugar</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.blood_sugar}} </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Temperature</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.temperature}} </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Heart Rate</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.heart_rate}} </div>
+                  </div>
+
+
+                   <div class="row">
+                    <div class="col-lg-3 col-md-4 label">BMI</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.bmi}} </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Respiratory Rate</div>
+                    <div class="col-lg-9 col-md-8">{{user_profile.patient.respiratory_rate}} </div>
+                  </div>
+
+
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                    <!-- Profile Edit Form -->
+
+                  <form method='POST'>{% csrf_token %}
+
+                     <div class="row mb-3">
+                      <label for="last_name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.last_name %}
+                          <input name="last_name" type="text" class="form-control" id="last_name" value="{{user_profile.last_name}}">
+                        {% else %}
+                          <input name="last_name" type="text" class="form-control" id="last_name">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="first_name" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.first_name %}
+                          <input name="first_name" type="text" class="form-control" id="first_name" value="{{user_profile.first_name}}">
+                        {% else %}
+                          <input name="first_name" type="text" class="form-control" id="first_name">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                     <div class="row mb-3">
+                      <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.email %}
+                          <input name="email" type="text" class="form-control" id="email" value="{{user_profile.email}}" required>
+                        {% else %}
+                          <input name="email" type="text" class="form-control" id="email" required>
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.phone %}
+                          <input name="phone" type="text" class="form-control" id="phone" value="{{user_profile.personal_info.phone}}">
+                        {% else %}
+                          <input name="phone" type="text" class="form-control" id="phone">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.country %}
+                          <input name="country" type="text" class="form-control" id="country" value="{{user_profile.personal_info.country}}">
+                        {% else %}
+                          <input name="country" type="text" class="form-control" id="country">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="d-block my-3">
+                          {% if user_profile.personal_info.gender == "Male" %}
+                          <div class="custom-control custom-radio">
+                              <input id="male" name="gender" type="radio" class="custom-control-input" value="Male" checked="">
+                              <label class="custom-control-label" for="male">Male</label>
+                          </div>
+
+                          <div class="custom-control custom-radio">
+                              <input id="female" name="gender" type="radio" class="custom-control-input" value="Female" >
+                              <label class="custom-control-label" for="female">Female</label>
+                          </div>
+
+                          {% else %}
+
+                          <div class="custom-control custom-radio">
+                              <input id="male" name="gender" type="radio" class="custom-control-input" value="Male">
+                              <label class="custom-control-label" for="male">Male</label>
+                          </div>
+
+                          <div class="custom-control custom-radio">
+                              <input id="female" name="gender" type="radio" class="custom-control-input" value="Female" checked="">
+                              <label class="custom-control-label" for="female">Female</label>
+                          </div>
+                           {% endif %}
+
+                      </div>
+                      </div>
+                    </div>
+
+                     <div class="row mb-3">
+                      <label for="dob" class="col-md-4 col-lg-3 col-form-label">Date of birth</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="dob" type="date" class="form-control" id="dob" value="{{user_profile.personal_info.dob|date:'Y-m-d'}}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="marital_status" class="col-md-4 col-lg-3 col-form-label">Marital Status</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.marital_status == True %}
+                        <select name="marital_status" class="custom-select my-1 mr-sm-2" id="marital_status">
+                             <option value="married">Married</option>
+                              <option value="single">Single</option>
+                        </select>
+
+                        {% else %}
+
+                        <select name="marital_status" class="custom-select my-1 mr-sm-2" id="marital_status">
+                          <option value="single">Single</option>
+                             <option value="married">Married</option>
+
+                        </select>
+
+                        {% endif %}
+
+
+                      </div>
+                    </div>
+
+                    <h5 class="card-title">Vitals</h5>
+
+                    <div class="row mb-3">
+                      <label for="height" class="col-md-4 col-lg-3 col-form-label">Height</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.height %}
+                          <input name="height" type="text" class="form-control" id="height" value="{{user_profile.patient.height}}">
+                        {% else %}
+                          <input name="height" type="text" class="form-control" id="height">
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="weight" class="col-md-4 col-lg-3 col-form-label">Weight</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.weight %}
+                          <input name="weight" type="text" class="form-control" id="weight" value="{{user_profile.patient.weight}}">
+                        {% else %}
+                          <input name="weight" type="text" class="form-control" id="weight">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="blood_group" class="col-md-4 col-lg-3 col-form-label">Blood Group</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.blood_group %}
+                          <input name="blood_group" type="text" class="form-control" id="blood_group" value="{{user_profile.patient.blood_group}}">
+                        {% else %}
+                          <input name="blood_group" type="text" class="form-control" id="blood_group">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+
+                     <div class="row mb-3">
+                      <label for="blood_pressure" class="col-md-4 col-lg-3 col-form-label">Blood Pressure</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.blood_pressure %}
+                          <input name="blood_pressure" type="text" class="form-control" id="blood_pressure" value="{{user_profile.patient.blood_pressure}}">
+                        {% else %}
+                          <input name="blood_pressure" type="text" class="form-control" id="blood_pressure">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="blood_sugar" class="col-md-4 col-lg-3 col-form-label">Blood Sugar</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.blood_sugar %}
+                          <input name="blood_sugar" type="text" class="form-control" id="blood_sugar" value="{{user_profile.patient.blood_sugar}}">
+                        {% else %}
+                          <input name="blood_sugar" type="text" class="form-control" id="blood_sugar">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="temperature" class="col-md-4 col-lg-3 col-form-label">Temperature</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.temperature %}
+                          <input name="temperature" type="text" class="form-control" id="temperature" value="{{user_profile.patient.temperature}}">
+                        {% else %}
+                          <input name="temperature" type="text" class="form-control" id="temperature">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="heart_rate" class="col-md-4 col-lg-3 col-form-label">Heart Rate</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.heart_rate %}
+                          <input name="heart_rate" type="text" class="form-control" id="heart_rate" value="{{user_profile.patient.heart_rate}}">
+                        {% else %}
+                          <input name="heart_rate" type="text" class="form-control" id="heart_rate">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                     <div class="row mb-3">
+                      <label for="bmi" class="col-md-4 col-lg-3 col-form-label">BMI</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.bmi %}
+                          <input name="bmi" type="text" class="form-control" id="bmi" value="{{user_profile.patient.bmi}}">
+                        {% else %}
+                          <input name="bmi" type="text" class="form-control" id="bmi">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="respiratory_rate" class="col-md-4 col-lg-3 col-form-label">Respiratory Rate</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.patient.respiratory_rate %}
+                          <input name="respiratory_rate" type="text" class="form-control" id="respiratory_rate" value="{{user_profile.patient.respiratory_rate}}">
+                        {% else %}
+                          <input name="respiratory_rate" type="text" class="form-control" id="respiratory_rate">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-settings">
+
+                  <!-- Settings Form -->
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                          <label class="form-check-label" for="changesMade">
+                            Changes made to your account
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                          <label class="form-check-label" for="newProducts">
+                            Information on new products and services
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="proOffers">
+                          <label class="form-check-label" for="proOffers">
+                            Marketing and promo offers
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                          <label class="form-check-label" for="securityNotify">
+                            Security alerts
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End settings Form -->
+
+                </div>
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form>
+
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="password" type="password" class="form-control" id="currentPassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="module" src="{% static 'cropperjs/dist/cropper.min.js' %}"></script>
+<script src='{% static "assets2/js/edit_profile_pat.js" %}'></script>
+
+{% endblock content %}

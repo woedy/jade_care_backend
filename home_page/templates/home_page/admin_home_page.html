@@ -1,0 +1,210 @@
+{% extends "base2admin.html" %}
+{% load static %}
+
+{% load admin_home_data %}
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Welcome back {{ request.user.first_name }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <h5 class="card-title">Top Services - Admin</h5>
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+
+                    <!-- Sales Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">New appoint. <span>| Today</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-calendar-week"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% get_admin_new_appointment_count %}</h6>
+                                        <span class="text-success small pt-1 fw-bold"></span> <span
+                                            class="text-muted small pt-2 ps-1">Patients</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Sales Card -->
+
+                    <!-- Appointments Card -->
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Appointments <span>| This Month</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-calendar-month"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% get_this_month_appointment_count %}</h6>
+                                        <span class="text-success small pt-1 fw-bold"></span> <span
+                                            class="text-muted small pt-2 ps-1">Patients</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- End Appointments Card -->
+
+                    <!-- Patients Card -->
+                    <div class="col-xxl-4 col-xl-12">
+
+                        <div class="card info-card customers-card">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">All Patients <span>| Total</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{% get_all_patient_count %}</h6>
+                                        <span class="text-danger small pt-1 fw-bold"></span> <span
+                                            class="text-muted small pt-2 ps-1">Patients</span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div><!-- End Patients Card -->
+
+
+                    <!-- Recent Appointments -->
+
+                     {% get_recent_appointments %}
+
+
+                    <!-- End Recent Appointments -->
+
+                    <!-- All Patients -->
+                    {% get_all_patients %}
+
+                    <!-- End All Patients -->
+
+
+                </div>
+            </div><!-- End Left side columns -->
+
+            <!-- Right side columns -->
+            <div class="col-lg-4">
+
+                <!-- Recent Activity -->
+                {% get_recent_activities request.user.id %}
+                <!-- End Recent Activity -->
+
+                <!-- News & Updates Traffic -->
+                {% get_recent_news %}
+
+                <!-- End News & Updates -->
+
+                <!-- Patient Gender -->
+                <div class="card">
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">Patient Gender <span>| All Patients</span></h5>
+
+                        <div id="trafficChart" style="min-height: 400px; user-select: none; position: relative;"
+                             class="echart" _echarts_instance_="ec_1637848080826">
+                            <div style="position: relative; width: 300px; height: 400px; padding: 0px; margin: 0px; border-width: 0px;">
+                                <canvas style="position: absolute; left: 0px; top: 0px; width: 300px; height: 400px; user-select: none; padding: 0px; margin: 0px; border-width: 0px;"
+                                        data-zr-dom-id="zr_0" width="600" height="800"></canvas>
+                            </div>
+                            <div class=""></div>
+                        </div>
+
+                    </div>
+                </div><!-- End Patient Gender -->
+
+
+
+            </div><!-- End Right side columns -->
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<script src='{% static "assets2/js/admin_home.js" %}'></script>
+
+{% endblock content %}

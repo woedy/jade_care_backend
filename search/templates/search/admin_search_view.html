@@ -1,0 +1,92 @@
+{% extends "base2admin.html" %}
+{% load class_name %}
+{% load static %}
+
+{% block content %}
+<link href='{% static "assets3/css/blog.css" %}' rel="stylesheet">
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Search</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Search Page</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="page-wrapper">
+        <div class="content">
+            <div class="col-md-8 col-lg-9">
+                <form id="search_form" method="GET">{% csrf_token %}
+                    <input name="q" type="text" class="form-control" id="search"></form>
+            </div>
+            <br>
+            {% for object in object_list %}
+            {% with object|class_name as klass %}
+            {% if klass == 'Doctor' %}
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-9">
+                    <article class="blog blog-single-post">
+                        <a href='{{ object.get_absolute_url }}'><h3 class="blog-title">{{ object.user.last_name }} {{ object.user.first_name }}</h3></a>
+                        <div class="blog-content mt-3">
+                            <p>{{ object.title }}</p>
+                        </div>
+                    </article>
+                </div>
+
+
+            </div>
+
+
+            {% elif klass == 'Patient' %}
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-9">
+                    <article class="blog blog-single-post">
+                        <a href='{{ object.get_absolute_url }}'><h3 class="blog-title">{{ object.user.last_name }} {{ object.user.first_name }}</h3></a>
+                        <div class="blog-content mt-3">
+
+                        </div>
+                    </article>
+                </div>
+
+
+            </div>
+
+            {% elif klass == 'Appointment' %}
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-9">
+                    <article class="blog blog-single-post">
+                        <a href='{{ object.get_absolute_url }}'><h3 class="blog-title">{{ object.appointment_type }} </h3></a>
+                        <p>{{ object.patient.last_name }}</p>
+                        <div class="blog-content mt-3">
+                            <p>{{ object.doctor.user.last_name }}</p>
+
+                        </div>
+                    </article>
+                </div>
+
+
+            </div>
+            {% endif %}
+
+            {% endwith %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+</main><!-- End #main -->
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+{% endblock %}
+
+
+
+
+

@@ -1,0 +1,196 @@
+
+{% url 'home_page:admin_home' as home_url %}
+{% url 'user_profile:admin_profile' as profile_url %}
+
+{% url 'posts:all_articles_admin' as all_articles %}
+
+{% url 'user_profile:add_timeslot_doc' as add_timeslot_doc %}
+{% url 'user_profile:view_timeslot_doc' as view_timeslot_doc %}
+{% url 'appointments:contact_patient' as contact_patient %}
+{% url 'appointments:all_appointments_admin' as all_appointments_admin %}
+
+{% url 'user_profile:list_all_doctors_admin' as list_all_doctors_admin %}
+{% url 'user_profile:list_all_patients_admin' as list_all_patients_admin %}
+
+{% url 'user_profile:list_all_doctors_schedule_admin' as list_all_doctors_schedule_admin %}
+
+{% url 'financials:invoice_page' as invoice_page %}
+{% url 'financials:payments_page' as payments_page %}
+{% url 'communications:chat_page_admin' as chat_page_admin %}
+
+{% url 'appointments:appointment_medium_page_admin' as appointment_medium_page_admin %}
+
+
+
+<!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != home_url %}collapsed{% endif %}" href={{home_url}}>
+          <i class="bi bi-grid"></i>
+          <span>Home Admin</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != profile_url %}collapsed{% endif %}" href={{profile_url}}>
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link {% if request.path != all_articles %}collapsed{% endif %}" href={{all_articles}}>
+          <i class="bi bi-newspaper"></i>
+          <span>Articles</span>
+        </a>
+      </li><!-- End Articles Page Nav -->
+
+        <li class="nav-item">
+        <a class="nav-link {% if request.path != list_all_doctors_admin %}collapsed{% endif %}" href={{list_all_doctors_admin}}>
+          <i class="bi bi-people-fill"></i>
+          <span>All Doctors</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != appointments %}collapsed{% endif %}" href={{list_all_doctors_schedule_admin}}>
+          <i class="bi bi-calendar-week-fill"></i>
+          <span>All Doctors Schedule</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != all_appointments_admin %}collapsed{% endif %}" href={{all_appointments_admin}}>
+          <i class="bi bi-calendar-week-fill"></i>
+          <span>All Appointments</span>
+        </a>
+      </li>
+
+
+        <li class="nav-item">
+        <a class="nav-link {% if request.path != list_all_patients_admin %}collapsed{% endif %}" href={{list_all_patients_admin}}>
+          <i class="bi bi-people"></i>
+          <span>All Patients</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != appointment_medium_page_admin %}collapsed{% endif %}" href={{appointment_medium_page_admin}}>
+          <i class="bi bi-circle"></i>
+          <span>Appointment Mediums</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Accounts</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
+          <li>
+        <a href={{invoice_page}}>
+              <i class="bi bi-circle"></i><span>Invoices</span>
+            </a>
+          </li>
+          <li>
+            <a href={{payments_page}}>
+              <i class="bi bi-circle"></i><span>Payments</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+       <li class="nav-item">
+        <a class="nav-link {% if request.path != chat_page_admin %}collapsed{% endif %}" href={{chat_page_admin}}>
+          <i class="bi bi-chat-dots"></i>
+          <span>Chat</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#calls-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+          <i class="bi bi-telephone-fill"></i><span>Calls</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="calls-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
+          <li>
+            <a href="tables-general.html">
+              <i class="bi bi-circle"></i><span>Voice Calls</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Video Calls</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#emails-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+          <i class="bi bi-envelope"></i><span>Emails</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="emails-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
+          <li>
+            <a href="tables-general.html">
+              <i class="bi bi-circle"></i><span>Compose</span>
+            </a>
+          </li>
+          <li>
+            <a href="tables-data.html">
+              <i class="bi bi-circle"></i><span>Inbox</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+
+       <li class="nav-heading">-</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-gear"></i>
+          <span>Settings</span>
+        </a>
+      </li><!-- End Settings Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-info-circle-fill"></i>
+          <span>Help & support</span>
+        </a>
+      </li><!-- End Help & support Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-ui-checks"></i>
+          <span>Terms & Conditions</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "accounts:logout_doctor" %}'>
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logouts</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+
+
+
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

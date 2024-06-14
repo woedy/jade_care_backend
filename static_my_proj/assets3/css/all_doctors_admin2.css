@@ -1,0 +1,124 @@
+/*-----------------
+	25. Doctors
+-----------------------*/
+
+
+
+.doctor-img {
+	cursor: pointer;
+	height: 80px;
+	margin: 0 auto 15px;
+	position: relative;
+	width: 80px;
+}
+.doctor-img .avatar {
+	font-size: 24px;
+	height: 80px;
+	line-height: 80px;
+	margin: 0;
+	width: 80px;
+}
+.doc-prof {
+	color: #777;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.doctor-name {
+	margin: 0;
+}
+.doctor-name a {
+	color: #333;
+}
+.see-all {
+	margin-top: 30px;
+	text-align: center;
+}
+.see-all .see-all-btn {
+	border: 1px solid #e2e2e2;
+	border-radius: 5px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	color: #777;
+	display: inline-block;
+	padding: 10px 20px;
+}
+
+
+
+
+/*-----------------
+	18. Employee
+-----------------------*/
+
+.action-icon {
+	color: #777;
+	font-size: 18px;
+	padding: 0 10px;
+	display: inline-block;
+}
+.table .dropdown-menu {
+	font-size: 12px;
+}
+.profile-widget {
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+.profile-widget .user-name > a {
+	color: #333;
+}
+.dropdown.profile-action {
+	position: absolute;
+	right: 5px;
+	text-align: right;
+	top: 10px;
+}
+.profile-action .dropdown-toggle:after {
+	display: none;
+}
+.profile-img {
+	cursor: pointer;
+	height: 80px;
+	margin: 0 auto;
+	position: relative;
+	width: 80px;
+}
+.profile-img .avatar {
+	font-size: 24px;
+	height: 80px;
+	line-height: 80px;
+	margin: 0;
+	width: 80px;
+}
+.mobile-no > a {
+	color: #777;
+	display: inline-block;
+}
+.staff-mail > a {
+	color: #777;
+	display: inline-block;
+	margin-top: 5px;
+}
+.staff-action-btns {
+	margin-top: 10px;
+}
+.staff-id {
+	margin-top: 5px;
+}
+.view-icons {
+	float: right;
+	margin-right: 10px;
+}
+.view-icons .btn {
+	color: #888;
+	font-size: 18px;
+	margin-right: 5px;
+	padding: 4px;
+}
+.view-icons .btn.active {
+	color: #333;
+}

@@ -1,0 +1,98 @@
+
+{% extends "base2pat.html" %}
+{% load static %}
+
+{% block content %}
+
+ <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Articles</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">Articles</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+
+
+     {% if all_articles %}
+        {% for article in all_articles %}
+            <div class="card col-lg-9">
+        <section class="section profile">
+        <div class="container mt-5">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <a href="{% url 'posts:article_detail_pat' article.id  %}"><h1 class="fw-bolder mb-1">{{article.name}}</h1></a>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">Posted {{article.created_at|timesince}} ago by Dr. {{article.author.last_name}}</div>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Covid-19</a>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Covid-19</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{article.post_files.all.0.file.url}}" alt="..."></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            <p class="fs-6 mb-4">{{article.body|linebreaksbr|truncatechars:250}}</p>
+                        </section>
+
+
+                    </article>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    </div>
+        {% endfor %}
+
+     {% else %}
+        <div class="card col-lg-9">
+        <section class="section profile">
+        <div class="container mt-5">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">No Blog Post!</h1>
+
+                        </header>
+                    </article>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    </div>
+
+     {% endif %}
+
+                <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                      </ul>
+                    </nav>
+
+
+  </main><!-- End #main -->
+{% endblock %}

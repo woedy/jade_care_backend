@@ -1,0 +1,111 @@
+
+{% url 'home_page:patient_home' as home_url %}
+{% url 'user_profile:patient_profile' as profile_url %}
+{% url 'posts:all_articles_pat' as all_articles_pat %}
+{% url 'appointments:make_appointment' as make_appointment %}
+
+{% url 'communications:chat_page_patient' as chat_page_patient %}
+
+
+<!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != home_url %}collapsed{% endif %}" href={{home_url}}>
+          <i class="bi bi-grid"></i>
+          <span>Home Pat</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != profile_url %}collapsed{% endif %}" href='{% url "user_profile:patient_profile" %}'>
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link {% if request.path != all_articles_pat %}collapsed{% endif %}" href='{% url "posts:all_articles_pat" %}'>
+          <i class="bi bi-newspaper"></i>
+          <span>Articles</span>
+        </a>
+      </li><!-- End Articles Page Nav -->
+
+
+       <li class="nav-item">
+        <a class="nav-link {% if request.path != make_appointment %}collapsed{% endif %}" href='{% url "appointments:make_appointment" %}'>
+          <i class="bi bi-calendar-week"></i>
+          <span>Make an appointment</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path != chat_page_patient %}collapsed{% endif %}" href={{chat_page_patient}}>
+          <i class="bi bi-chat-dots"></i>
+          <span>Chat</span>
+        </a></li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "general_checkup:general_checkup" %}'>
+          <i class="bi bi-bookmark-heart"></i>
+          <span>General Checkup</span>
+        </a>
+      </li><!-- End General Checkup Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "prescriptions:prescriptions" %}'>
+          <i class="bi bi-journal-medical"></i>
+          <span>Prescriptions</span>
+        </a>
+      </li><!-- End Prescriptions Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "medical_centers:medical_centers" %}'>
+          <i class="bi bi-building"></i>
+          <span>Medical Centers</span>
+        </a>
+      </li><!-- End Medical Centers Page Nav -->
+
+      <li class="nav-heading">-</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-person"></i>
+          <span>Settings</span>
+        </a>
+      </li><!-- End Settings Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-info-circle-fill"></i>
+          <span>Help & support</span>
+        </a>
+      </li><!-- End Help & support Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-ui-checks"></i>
+          <span>Terms & Conditions</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "accounts:logout_patient" %}'>
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logouts</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

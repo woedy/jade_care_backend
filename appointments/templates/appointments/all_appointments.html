@@ -1,0 +1,113 @@
+{% extends "base2doc.html" %}
+{% load static %}
+{% load home_data %}
+
+
+
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>All Appointments</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Appointments</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+
+
+                    <!-- Appointments Card -->
+
+                    <!-- Appointments Card -->
+
+                        <div>
+               {% if appointments_data %}
+                    {% for appointment in appointments_data %}
+                        <a href='{% url "appointments:appointment_detail_doc" appointment.id %}'>
+                                  <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <img height="170" width="170" src={{appointment.patient.personal_info.photo}} class="img-fluid rounded-start"
+                                         alt="...">
+                                </div>
+
+
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0 pb-2">{{appointment.patient.last_name}} {{appointment.patient.first_name}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{appointment.appointment_type}}</h6>
+                                        {% if appointment.status == "Pending" %}
+                                            <span class="badge rounded-pill bg-danger">{{appointment.status}}</span>
+                                        {% else %}
+                                            <span class="badge rounded-pill bg-success">{{appointment.status}}</span>
+                                        {% endif %}
+                                        <div class="col mt-3">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="bi bi-clock me-1"></i> {{appointment.appointment_date}}, {{ appointment.appointment_time }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                              </a>
+
+                    {% endfor %}
+               {% else %}
+
+                <div class="card mb-3">
+            <div class="row g-0">
+
+              <div class="col-md-9">
+                <div class="card-body">
+                  <h5 class="card-title mb-0 pb-2">No Appointments Available</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+
+               {% endif %}
+
+           </div>
+            <!-- End Appointments Card -->
+                    <!-- End Appointments Card -->
+
+
+                </div>
+            </div><!-- End Left side columns -->
+
+            <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          {% get_recent_activities request.user.id %}
+
+        </div><!-- End Right side columns -->
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<script>
+    function convertDate(date){
+
+    console.log(date);
+
+    return date;
+    }
+</script>
+
+{% endblock content %}

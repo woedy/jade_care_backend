@@ -1,0 +1,49 @@
+{% load static %}
+
+<div class="col-12">
+                        <div class="card recent-sales top-selling">
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">New Patients <span>| <a href="{% url 'user_profile:list_all_patients_admin' %}">See all</a></span></h5>
+
+                                <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+
+                                    <div class="dataTable-container">
+                                        <table class="table table-borderless datatable dataTable-table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" data-sortable="" style="width: 13.5556%;"><a href="#"
+                                                                                                             class="dataTable-sorter">Patient</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 32.1111%;"><a href="#"
+                                                                                                             class="dataTable-sorter">Full Name</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 12.4444%;"><a href="#"
+                                                                                                             class="dataTable-sorter">Gender</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 23.2222%;"><a href="#"
+                                                                                                             class="dataTable-sorter">Phone</a>
+                                                </th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for patient in all_patient_data %}
+                                                <tr>
+                                            <td scope="row"><a href="{% url 'user_profile:patient_detail_admin' patient.id %}"><img src="{{patient.user.personal_info.photo.url}}" alt=""></a></td>
+                                                <td>{{patient.user.last_name}} {{patient.user.first_name}}</td>
+                                                <td>{{patient.user.personal_info.gender}}</td>
+                                                <td>{{patient.user.personal_info.phone}}</td>
+                                            </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>

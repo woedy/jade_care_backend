@@ -1,0 +1,132 @@
+{% extends "base2doc.html" %}
+{% load static %}
+
+{% load home_data %}
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Welcome back {{ request.user.first_name }}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+  <h5 class="card-title">Top Services - Doctor</h5>
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+            <!-- Make appointment Card -->
+
+              <div class="col-xxl-6 col-md-6">
+                <a href="{% url 'user_profile:add_timeslot_doc' %}">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">Add Time slot</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-calendar-plus"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+                </a>
+            </div>
+
+
+            <!-- End Make an appointment -->
+            <!-- General Checkup Card -->
+            <div class="col-xxl-6 col-md-6">
+              <a href="{% url 'user_profile:view_timeslot_doc' %}">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">View Time slots</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-calendar-week"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              </a>
+            </div><!-- End General checkup Card -->
+
+            <!-- Prescriptions Card -->
+            <div class="col-xxl-6 col-md-6">
+              <a href="{% url 'appointments:contact_patient' %}">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">Contact Patient</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              </a>
+            </div><!-- End Prescriptions Card -->
+
+            <!-- Medical Centers Card -->
+            <div class="col-xxl-6 col-md-6">
+               <a href="{% url 'posts:all_articles_doc' %}">
+              <div class="card info-card sales-card">
+
+                <div class="card-body">
+                  <h5 class="card-title">View Articles</h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-journal-medical"></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+               </a>
+            </div><!-- End Medical Centers  Card -->
+
+            <h5 class="card-title col">My Appointments <span>| <a href="{% url 'appointments:all_appointments' %}">See all</a></span></h5>
+
+
+            {% get_recent_appointments_doc request.user.id  %}
+
+
+
+
+          </div>
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          {% get_recent_activities request.user.id  %}
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock content %}

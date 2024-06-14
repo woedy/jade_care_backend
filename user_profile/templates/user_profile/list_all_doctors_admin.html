@@ -1,0 +1,57 @@
+{% extends "base2admin.html" %}
+{% load static %}
+{% load get_doctors_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href='{% static "assets3/css/all_doctors_admin.css" %}' rel="stylesheet">
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>All Doctors</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">All Doctors</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="content">
+        <div class="row doctor-grid">
+            {% for doctor in all_doctors %}
+                <div class="col-md-4 col-sm-4  col-lg-3">
+                <div class="profile-widget">
+                    <div class="doctor-img">
+                        <a class="avatar" href="{% url 'user_profile:doctor_detail_admin' doctor.id  %}"><img alt="" src="{{doctor.user.personal_info.photo.url}}"></a>
+                    </div>
+                    <div class="dropdown profile-action">
+                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                class="fa fa-ellipsis-v"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_doctor"><i
+                                    class="fa fa-trash-o m-r-5"></i> Delete</a>
+                        </div>
+                    </div>
+                    <h4 class="doctor-name text-ellipsis"><a href="{% url 'user_profile:doctor_detail_admin' doctor.id  %}">{{doctor.user.last_name}} {{doctor.user.first_name}}</a></h4>
+                    <div class="doc-prof">{{doctor.title}}</div>
+                    <div class="user-country">
+                        <i class="fa fa-map-marker"></i> {{doctor.user.personal_info.country}}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src='{% static "assets3/js/all_doctors_admin.js" %}'></script>
+
+
+{% endblock %}

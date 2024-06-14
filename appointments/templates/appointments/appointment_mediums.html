@@ -1,0 +1,12 @@
+{% for medium in appointment_mediums %}
+<div class="col-xxl-4 col-md-6">
+    <div data-value="{{medium.name}}" id="medium-{{medium.id}}" onclick="setMedium('{{medium.name}}', '{{medium.price}}' )" class="card info-card app_type_btn sales-card app-mediums">
+        <div class="card-body text-center pb-0">
+            <h5 class="card-title">{{medium.name}}</h5>
+
+        </div>
+
+
+    </div>
+</div>
+{% endfor %}

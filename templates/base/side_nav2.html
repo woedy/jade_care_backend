@@ -1,0 +1,100 @@
+
+{% url 'home_page:patient_home' as home_url %}
+
+
+<!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href={{home_url}}>
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "user_profile:patient_profile" %}'>
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "posts:all_articles" %}'>
+          <i class="bi bi-person"></i>
+          <span>Articles</span>
+        </a>
+      </li><!-- End Articles Page Nav -->
+
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "appointments:make_appointment" %}'>
+          <i class="bi bi-person"></i>
+          <span>Make an appointment</span>
+        </a>
+      </li><!-- End Make an appointment Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "general_checkup:general_checkup" %}'>
+          <i class="bi bi-person"></i>
+          <span>General Checkup</span>
+        </a>
+      </li><!-- End General Checkup Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "prescriptions:prescriptions" %}'>
+          <i class="bi bi-person"></i>
+          <span>Prescriptions</span>
+        </a>
+      </li><!-- End Prescriptions Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href='{% url "medical_centers:medical_centers" %}'>
+          <i class="bi bi-person"></i>
+          <span>Medical Centers</span>
+        </a>
+      </li><!-- End Medical Centers Page Nav -->
+
+      <li class="nav-heading">-</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Settings</span>
+        </a>
+      </li><!-- End Settings Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="pages-faq.html">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li><!-- End F.A.Q Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Help & support</span>
+        </a>
+      </li><!-- End Help & support Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Terms & Conditions</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Logouts</span>
+        </a>
+      </li><!-- End Terms & Conditions Page Nav -->
+
+
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

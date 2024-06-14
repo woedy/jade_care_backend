@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="card">
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body pb-0">
+                        <h5 class="card-title">News &amp; Updates <span>| See all</span></h5>
+
+                        {% for post in all_posts_data %}
+                            <div class="news">
+                            <div class="post-item clearfix">
+                                <img src="{{post.post_files.all.0.file.url}}" alt="">
+                                <h4><a href="{% url 'posts:article_detail_admin' post.id  %}">{{post.name}}</a></h4>
+                                <p>{{post.body|truncatechars:150}}</p>
+                                <p>{{post.created_at|timesince}}</p>
+                            </div>
+
+
+                        </div><!-- End sidebar recent posts-->
+                        {% endfor %}
+
+                    </div>
+                </div>

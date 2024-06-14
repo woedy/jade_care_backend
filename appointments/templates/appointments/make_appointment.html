@@ -1,0 +1,357 @@
+{% extends "base2pat.html" %}
+{% load static %}
+{% load get_doctors_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href='{% static "assets2/css/appointment_form.css" %}' rel="stylesheet">
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>New Appointment</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Make an appointment</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="card">
+
+        <div id="regForm">
+            <form id="appointment_form" action='{% url "appointments:make_appointment_post" %}'>{% csrf_token %}
+
+
+            <h1>New Appointment:</h1>
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body">
+                    <h5 class="card-title">Appointment type</h5>
+                    <h6 class="card-subtitle mb-4 text-muted">What type of appointment are you scheduling?</h6>
+
+
+                    <!-- Vertical Form -->
+                    <div class="row g-3" id="ap_type">
+                        <div class="col-xxl-4 col-md-6">
+                            <div  id="new_problem_btn" onclick="setNewProblem()" class="card info-card sales-card app_type_btn ap_type">
+                                <div class="card-body text-center pb-0">
+                                    <div class="row">
+                                        <h5 id="new_problem"  class="card-title">New Problem</h5>
+                                    </div>
+                                    <input id="new_problem-input" type="hidden" class="form-control">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-md-6">
+                            <div id="covid_19_btn" onclick="setCovid19()" class="card info-card sales-card app_type_btn ap_type">
+                                <div class="card-body text-center pb-0">
+                                    <div class="row">
+                                        <h5 class="card-title" id="covid_19">Covid-19</h5>
+                                    </div>
+                                    <input id="covid_19-input" type="hidden" class="form-control">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div  class="col-xxl-4 col-md-6">
+                            <div id="problem_follow_up_btn" onclick="setProblemFollowUp()" class="card info-card sales-card app_type_btn ap_type">
+                                <div class="card-body text-center pb-0">
+                                    <div class="row">
+                                        <h5 class="card-title" id="problem_follow_up">Problem Follow-up</h5>
+                                    </div>
+                                    <input id="problem_follow_up-input" type="hidden" class="form-control">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </div><!-- Vertical Form -->
+
+                </div>
+            </div>
+            <!-- One "tab" for each step in the form: -->
+
+            <div class="tab">
+
+                <h5 class="card-title">Select a Doctor {% get_doctors %}</h5>
+                <h6 class="card-subtitle mb-4 text-muted">Select from the list of doctors and book appointment</h6>
+
+                  {% get_all_doctors %}
+
+            </div>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <h5 class="card-title">Reason for appointment</h5>
+                <h6 class="card-subtitle mb-4 text-muted">Reason</h6>
+
+                <div class="col-12">
+                    <textarea class="form-control mb-5" id="app-reason"></textarea>
+                </div>
+            </div>
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body ">
+                    <h5 class="card-title">This appointment is for</h5>
+                    <div class="card">
+                        <div class="card-body pt-5">
+                            <!-- Default Tabs -->
+                            <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
+                                <li class="nav-item flex-fill" role="presentation">
+                                    <button class="nav-link w-100 active" onclick="setSelf()" id="myself-tab" data-bs-toggle="tab"
+                                            data-bs-target="#myself-justified" type="button" role="tab"
+                                            aria-controls="myself" aria-selected="true">Myself
+                                    </button>
+                                </li>
+                                <li class="nav-item flex-fill" role="presentation">
+                                    <button class="nav-link w-100" id="someone-tab" data-bs-toggle="tab"
+                                            data-bs-target="#someone-justified" onclick="setOther()" type="button" role="tab"
+                                            aria-controls="someone" aria-selected="false">Someone else
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-2" id="myTabjustifiedContent">
+                                <div class="tab-pane fade active show" id="myself-justified" role="tabpanel"
+                                     aria-labelledby="myself-tab">
+                                    Click next if you are making an appointment for yourself.
+                                </div>
+                                <div class="tab-pane fade" id="someone-justified" role="tabpanel"
+                                     aria-labelledby="someone-tab">
+
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="other-lastname" class="form-label">Last name</label>
+                                            <input type="text" class="form-control" id="other-lastname">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="other-firstname" class="form-label">First name</label>
+                                            <input type="text" class="form-control" value="" id="other-firstname">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="other-email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="other-email">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="other-phone" class="form-label">Phone</label>
+                                            <input type="text" class="form-control" value=" " id="other-phone">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Default Tabs -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body">
+                    <h5 class="card-title">Appointment Summary</h5>
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">Appointment Type</h5>
+                                        <h6 id="sum-app-type" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">Doctor</h5>
+                                        <h6 id="sum-app-doctor" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">Appointment Date</h5>
+                                        <h6 id="sum-app-date" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">Appointment Time</h5>
+                                        <h6 id="sum-app-time" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">Reason</h5>
+                                        <h6 id="sum-app-reason" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-2">For self</h5>
+                                        <h6 id="sum-app-forself" class="card-subtitle mb-2 text-muted"></h6>
+                                    </div>
+                                    <div>
+                                        <h5 class="card-title mb-0 pb-3">Appointment for other patient info</h5>
+                                        <div>
+                                            <div>
+                                                <h6 class="card-subtitle mb-0 pb-2">Full name</h6>
+                                                <h6 id="sum-app-other-data-fullname" class="card-subtitle mb-2 text-muted"></h6>
+                                            </div>
+                                            <div>
+                                                <h6 class="card-subtitle mb-0 pb-2">Email</h6>
+                                                <h6 id="sum-app-other-data-email" class="card-subtitle mb-2 text-muted"></h6>
+                                            </div>
+                                            <div>
+                                                <h6 class="card-subtitle mb-0 pb-2">Phone</h6>
+                                                <h6 id="sum-app-other-data-phone" class="card-subtitle mb-2 text-muted"></h6>
+                                            </div>
+                                    </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+                 <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body">
+                    <h5 class="card-title">Fee info</h5>
+                    <h6 class="card-subtitle mb-4 text-muted">How would you like your appointment?</h6>
+
+
+                    <!-- Vertical Form -->
+                    <div class="row g-3">
+
+                        {% get_appointment_mediums %}
+
+                    </div><!-- Vertical Form -->
+
+                </div>
+            </div>
+
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body">
+                    <h5  class="card-title">Payment</h5>
+                    <h6 class="card-subtitle mb-4 text-muted">Amount to pay</h6>
+                    <h1 class="appointment-fee"></h1>
+
+
+                    <!-- Vertical Form -->
+                    <div class="row g-3">
+                        <div class="col-xxl-4 col-md-6 app-payments">
+                            <div data-value="Momo" id="momo" onclick="setPaymentType('Momo')" class="card info-card sales-card app_type_btn app-payments">
+                                <div class="card-body text-center pb-0">
+                                    <h5 class="card-title">Momo</h5>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-md-6">
+                            <div data-value="Paypal" id="paypal" onclick="setPaymentType('Paypal')" class="card info-card sales-card app_type_btn app-payments">
+                                <div class="card-body text-center pb-0">
+                                    <h5 class="card-title">Paypal</h5>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 col-md-6">
+                            <div data-value="Bank" id="bank" onclick="setPaymentType('Bank')" class="card info-card sales-card app_type_btn app-payments">
+                                <div class="card-body text-center pb-0">
+                                    <h5 class="card-title">Bank</h5>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div><!-- Vertical Form -->
+
+                </div>
+            </div>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+
+                <div class="card-body">
+                    <h5 class="card-title">Payment Info</h5>
+                    <h6 class="card-subtitle mb-4 text-muted">Amount to pay</h6>
+                    <h1 class="appointment-fee"></h1>
+
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="payment-lastname" class="form-label">Last name</label>
+                            <input type="text" class="form-control" id="payment-lastname">
+                        </div>
+                        <div class="col-12">
+                                            <label for="payment-firstname" class="form-label">First name</label>
+                                            <input type="text" class="form-control" value="" id="payment-firstname">
+                                        </div>
+                        <div class="col-12">
+                                            <label for="payment-email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="payment-email">
+                                        </div>
+                        <div class="col-12">
+                                            <label for="payment-phone" class="form-label">Phone</label>
+                                            <input type="text" class="form-control" value=" " id="payment-phone">
+                                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+                <div>
+                    <h5 class="text-danger" id="error-message"></h5>
+                </div>
+
+
+
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button id="prevBtn" type="button" class="btn btn-primary" onclick="nextPrev(-1)">Previous</button>
+                    <button id="nextBtn" type="button" class="btn btn-primary app-submit" onclick="nextPrev(1)">Next</button>
+                </div>
+
+            </div>
+
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+
+
+            </div>
+
+        </form>
+        </div>
+
+    </div>
+
+
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src='{% static "assets2/js/appointment_form2.js" %}'></script>
+
+
+{% endblock %}

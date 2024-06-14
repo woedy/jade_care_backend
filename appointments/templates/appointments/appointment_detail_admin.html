@@ -1,0 +1,231 @@
+{% extends "base2admin.html" %}
+{% load static %}
+{% load home_data %}
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Appointment Details</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Appointments</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Appointment Details</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+                    <!-- Appointments Card -->
+
+                    <div>
+                        <div class="card mb-3">
+
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <img height="170" width="170" src={{appointment_detail.patient.personal_info.photo.url}}
+                                         class="img-fluid rounded-start"
+                                         alt="...">
+                                </div>
+
+
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0 pb-2">{{appointment_detail.patient.last_name}}
+                                            {{appointment_detail.patient.first_name}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{appointment_detail.appointment_type}}</h6>
+                                        {% if appointment_detail.status == "Pending" %}
+                                            <span class="badge rounded-pill bg-danger app_status">{{appointment_detail.status}}</span>
+                                        {% elif appointment_detail.status == "Declined" %}
+                                            <span class="badge rounded-pill bg-danger app_status">{{appointment_detail.status}}</span>
+                                        {% else %}
+                                        <span class="badge rounded-pill bg-success app_status">{{appointment_detail.status}}</span>
+                                        {% endif %}
+                                        <div class="col mt-3">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="bi bi-clock me-1"></i> {{appointment_detail.appointment_date}}, {{appointment_detail.appointment_time}}
+                                            </button>
+                                        </div>
+                                          <div class="col mt-3">
+                                            <a type="button" href="{% url 'appointments:appointment_video_call_page' %}" class="btn btn-warning"><i
+                                                    class="bi bi-camera-reels-fill me-1"></i> Video Call
+                                            </a>
+                                              <button  type="button" class="btn btn-info"><i
+                                                    class="bi bi-telephone-fill me-1"></i>Voice Call
+                                            </button>
+                                            <a type="button" href="{% url 'appointments:appointment_text_message_page_doc' appointment_detail.id %}" class="btn btn-dark"><i
+                                                    class="bi bi-chat-left-dots-fill me-1"></i>Text Message</a>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <img height="170" width="170" src={{appointment_detail.doctor.user.personal_info.photo.url}}
+                                         class="img-fluid rounded-start"
+                                         alt="...">
+                                </div>
+
+
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0 pb-2">{{appointment_detail.doctor.user.last_name}}
+                                            {{appointment_detail.doctor.user.first_name}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{appointment_detail.doctor.title}}</h6>
+
+                                          <div class="col mt-3">
+                                            <a type="button" href="{% url 'appointments:appointment_video_call_page' %}" class="btn btn-warning"><i
+                                                    class="bi bi-camera-reels-fill me-1"></i> Video Call
+                                            </a>
+                                              <button  type="button" class="btn btn-info"><i
+                                                    class="bi bi-telephone-fill me-1"></i>Voice Call
+                                            </button>
+                                            <a type="button" href="{% url 'appointments:appointment_text_message_page_doc' appointment_detail.id %}" class="btn btn-dark"><i
+                                                    class="bi bi-chat-left-dots-fill me-1"></i>Text Message</a>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End Appointments Card -->
+
+
+
+                    <div class="mh-3">
+                        <div class="card ">
+                             <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots"></i> Actions</a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="">
+                            <li class="dropdown-header text-start">
+                                <h6>Actions</h6>
+                            </li>
+                            <form id="appointment_actions" action="{% url 'appointments:approve_appointment_doc' appointment_detail.id %}"></form>
+                            <li><a id="approve" class="dropdown-item" href="#">Approve Appointment</a></li>
+                            <li><a id="decline" class="dropdown-item" href="#">Decline Appointment</a></li>
+                            <li><a id="start" class="dropdown-item" href="#">Start Appointment</a></li>
+                            <li><a id="completed" class="dropdown-item" href="#">Complete Appointment</a></li>
+                        </ul>
+                    </div>
+
+
+                            <div class="card-body">
+
+
+                                <div class="pt-0">
+                                    <h5 class="card-title pb-0">Appointment Type</h5>
+                                    <p class="">{{appointment_detail.appointment_type}}</p>
+                                    <hr>
+                                </div>
+
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Patient</h5>
+                                    <p class="">{{appointment_detail.patient.last_name}} {{appointment_detail.patient.first_name}}</p>
+                                    <hr>
+                                </div>
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Appointment Date</h5>
+                                    <p class="">{{appointment_detail.appointment_date}}</p>
+                                    <hr>
+                                </div>
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Appointment Time</h5>
+                                    <p class="">{{appointment_detail.appointment_time}}</p>
+                                    <hr>
+                                </div>
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Reason</h5>
+                                    <p class="">{{appointment_detail.reason}}</p>
+                                    <hr>
+                                </div>
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">For self</h5>
+                                    <p class="">{{appointment_detail.for_self}}</p>
+                                    <hr>
+                                </div>
+
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Appointment for other patient info</h5>
+                                     <div class="pt-0">
+                                    <div class="container">
+                                        <h5 class="card-title pb-0">Full Name</h5>
+                                    <p class="">{{appointment_detail.appointment_for_other.last_name}} {{appointment_detail.appointment_for_other.first_name}}</p>
+                                    <hr>
+                                         <h5 class="card-title pb-0">Email</h5>
+                                    <p class="">{{appointment_detail.appointment_for_other.email}}</p>
+                                    <hr>
+                                         <h5 class="card-title pb-0">Phone</h5>
+                                    <p class="">{{appointment_detail.appointment_for_other.phone}}</p>
+
+                                    </div>
+                                </div>
+                                    <hr>
+                                </div>
+
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Appointment Medium</h5>
+                                    <p class="">{{appointment_detail.appointment_medium}}</p>
+                                    <hr>
+                                </div>
+
+                                 <div class="pt-0">
+                                    <h5 class="card-title pb-0">Amount to pay</h5>
+                                    <p class="">Ghc {{appointment_detail.amount_to_pay}}</p>
+                                    <hr>
+                                </div>
+                                <div class="pt-0">
+                                    <h5 class="card-title pb-0">Payment Info</h5>
+                                    <div class="container">
+                                        <h5 class="card-title pb-0">Payment Method</h5>
+                                    <p class="">{{appointment_detail.payment_method}}</p>
+                                    <hr>
+                                        <h5 class="card-title pb-0">Full Name</h5>
+                                    <p class="">{{appointment_detail.appointment_payment.last_name}} {{appointment_detail.appointment_for_other.first_name}}</p>
+                                    <hr>
+                                         <h5 class="card-title pb-0">Email</h5>
+                                    <p class="">{{appointment_detail.appointment_payment.email}}</p>
+                                    <hr>
+                                         <h5 class="card-title pb-0">Phone</h5>
+                                    <p class="">{{appointment_detail.appointment_payment.phone}}</p>
+
+                                    </div>
+                                    <hr>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div><!-- End Left side columns -->
+
+            <!-- Right side columns -->
+            <div class="col-lg-4">
+
+              {% get_recent_activities request.user.id  %}
+
+            </div><!-- End Right side columns -->
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src='{% static "assets2/js/appointment_detail_doc.js" %}'></script>
+
+
+{% endblock content %}

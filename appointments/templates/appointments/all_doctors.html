@@ -1,0 +1,107 @@
+{% for doctor in all_doctors %}
+   <div class="row">
+
+
+    <div id="doc_card" class=" pl-3">
+
+        <div id="doctor_head" class="col">
+
+            <div id="doctor-{{doctor.id}}" onclick="setDoctor({{doctor.id}})" class="card  doctors">
+
+                <div class="row d_card">
+                    <div class="col-md-3"><img src={{doctor.user.personal_info.photo.url}}
+                                               class="img-fluid rounded-start" alt="..." width="170" height="170"></div>
+                    <div class="col-md-9">
+                        <div class="card-body"><h5 class="card-title mb-0 pb-2" id="ap_doc_name">Dr. {{doctor.user.last_name}} {{doctor.user.first_name}}</h5>
+                            <h6 class="card-subtitle mb-1 text-muted">{{doctor.title}}</h6>
+                            {% if doctor.rating != null %}
+                            <div><span class="fa fa-star checked"> {{ doctor.rating }} Stars</span></div>
+                            {% else %}
+                            <div><span class="fa fa-star checked"> No Stars</span></div>
+                            {% endif %}
+                            <div class="col mt-3">
+                                <button type="button" id="{{ doctor.id }}" class="btn btn-primary">Book Now!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- One "tab" for each step in the form: -->
+
+
+
+    </div>
+
+       <div class="app_time_tab doc-{{doctor.id}}">
+                <!--
+                <div class="tab">
+                -->
+
+                <h5 class="card-title">Select a time slot</h5>
+                <h6 class="card-subtitle mb-4 text-muted">Select from the list of available time slots</h6>
+
+           <div>
+
+    <h5 class="card-title">Available time slot</h5>
+
+    <div class="card">
+            <div class="card-body">
+              </br>
+
+                {% if doctor.available_slot.all %}
+                    {% for date in doctor.available_slot.all %}
+                    <!-- Default Accordion -->
+                        <div class="accordion" id="accordionExample{{date.id}}">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne{{date.id}}">
+                    <button data-value="{{date.slot_date|date:'Y-m-d'}}" id="app-date-{{date.id}}-{{doctor.id}}" onclick="setDate('{{date.slot_date}}', '{{date.slot_date|date:'Y-m-d'}}')" class="accordion-button collapsed app-dates" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{date.id}}" aria-expanded="false" aria-controls="collapseOne{{date.id}}">{{date.slot_date}}</button>
+                  </h2>
+                  <div id="collapseOne{{date.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne{{date.id}}" data-bs-parent="#accordionExample{{date.id}}" style="">
+                    <div class="accordion-body">
+                        <p>Time</p>
+                        {% if date.appointment_time.all %}
+                            {% for time in date.appointment_time.all %}
+                                    <button id="app-time-{{time.id}}-{{doctor.id}}" onclick="setTime('{{time.time}}', '{{time.time|time:'h:i a'}}')" type="button" class="btn btn-secondary app-times">{{time.time|time:"h:i a"}}</button>
+                         {% endfor %}
+                        {% endif %}
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+                    <!-- End Default Accordion Example -->
+                    {% endfor %}
+
+                {% else %}
+                    <div class="accordion" id="accordionExample1">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne1">
+                    <button data-value="" id="" class="accordion-button collapsed app-dates" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{date.id}}" aria-expanded="false" aria-controls="collapseOne{{date.id}}">NO DATE AVAILABLE</button>
+                  </h2>
+                  <div id="collapseOne1" class="accordion-collapse collapse" aria-labelledby="headingOne{{date.id}}" data-bs-parent="#accordionExample{{date.id}}" style="">
+                    <div class="accordion-body">
+                        <p>No Time available</p>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+                {% endif %}
+
+            </div>
+          </div>
+</div>
+
+
+            </div>
+
+</div>
+
+  {% endfor %}

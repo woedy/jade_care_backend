@@ -1,0 +1,188 @@
+{% extends "base2pat.html" %}
+{% load static %}
+{% load home_data %}
+
+
+
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Welcome back {{ request.user.first_name }}</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <h5 class="card-title">Top Services - Patient</h5>
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+                <div class="row">
+
+                    <!-- Make appointment Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <a href='{% url "appointments:make_appointment" %}'>
+                            <div class="card info-card sales-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Make an appointment</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-calendar-week"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div><!-- End Make an appointment -->
+                    <!-- General Checkup Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <a href='{% url "general_checkup:general_checkup" %}'>
+                            <div class="card info-card sales-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">General Checkup</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-bookmark-heart"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div><!-- End General checkup Card -->
+
+                    <!-- Prescriptions Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <a href='{% url "prescriptions:prescriptions" %}'>
+                            <div class="card info-card sales-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Prescriptions</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-journal-medical"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div><!-- End Prescriptions Card -->
+
+                    <!-- Medical Centers Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <a href='{% url "medical_centers:medical_centers" %}'>
+                            <div class="card info-card sales-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Medical Centers</h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-building"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </a>
+                    </div><!-- End Medical Centers  Card -->
+
+                    <p id="demo"></p>
+
+                    <h5 class="card-title col">My Appointments <span>| See all</span></h5>
+
+                    <!-- Appointments Card -->
+
+                    <div>
+                        {% if appointment_data %}
+                            {% for appointment in appointment_data %}
+                              <a href='{% url "appointments:appointment_detail_pat" appointment.id %}'>
+                                  <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <img height="170" width="170" src={{appointment.doctor.user.personal_info.photo}} class="img-fluid rounded-start"
+                                         alt="...">
+                                </div>
+
+
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0 pb-2">Dr. {{appointment.doctor.user.last_name}} {{appointment.doctor.user.first_name}}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{appointment.doctor.title}}</h6>
+                                        {% if appointment.status == "Pending" %}
+                                            <span class="badge rounded-pill bg-danger">{{appointment.status}}</span>
+                                        {% elif appointment.status == "Declined" %}
+                                            <span class="badge rounded-pill bg-danger">{{appointment.status}}</span>
+                                        {% else %}
+                                            <span class="badge rounded-pill bg-success">{{appointment.status}}</span>
+                                        {% endif %}
+                                        <div class="col mt-3">
+                                            <button type="button" class="btn btn-primary"><i
+                                                    class="bi bi-clock me-1"></i> {{appointment.appointment_date}}, {{ appointment.appointment_time }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                              </a>
+
+                            {% endfor %}
+                        {% else %}
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-0 pb-2">No Appointment available</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                    <!-- End Appointments Card -->
+
+
+                </div>
+            </div><!-- End Left side columns -->
+
+            <!-- Right side columns -->
+        <div class="col-lg-4">
+
+          {% get_recent_activities request.user.id %}
+
+        </div><!-- End Right side columns -->
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<script>
+    function convertDate(date){
+
+    console.log(date);
+
+    return date;
+    }
+</script>
+
+{% endblock content %}

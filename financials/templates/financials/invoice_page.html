@@ -1,0 +1,174 @@
+{% extends "base2admin.html" %}
+{% load static %}
+
+{% load admin_home_data %}
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Invoice</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.html">Invoice</a></li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- All Patients -->
+                    <div class="col-12">
+                        <div class="card recent-sales top-selling">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">All invoices <span>| </span></h5>
+                                <div class="row filter-row mb-4">
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group form-focus">
+                                            <label class="focus-label">From</label>
+                                            <div class="cal-icon">
+                                                <input class="form-control floating" type="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group form-focus">
+                                            <label class="focus-label">To</label>
+                                            <div class="cal-icon">
+                                                <input class="form-control floating" type="date">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group form-focus">
+                                            <label class="focus-label">Status</label>
+                                            <div class="cal-icon">
+                                                <div class="col-sm-10">
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <option selected="">Select Status</option>
+                                                        <option value="1">Paid</option>
+                                                        <option value="2">Pending</option>
+                                                        <option value="3">Paid Partially</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-3">
+                                        <div class="form-group form-focus">
+                                            <label class="focus-label"></label>
+                                            <div class="cal-icon">
+                                                <a href="#" class="btn btn-success btn-block"> Search </a></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+
+                                    <div class="dataTable-container">
+                                        <table class="table table-borderless datatable dataTable-table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                       class="dataTable-sorter">Invoice No.</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 20%;"><a href="#"
+                                                                                                        class="dataTable-sorter">Patient</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                        class="dataTable-sorter">Date Created</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                       class="dataTable-sorter">Due Date</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                        class="dataTable-sorter">Amount</a>
+                                                </th>
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                        class="dataTable-sorter">Status</a>
+                                                </th>
+
+                                                <th scope="col" data-sortable="" style="width: 10%;"><a href="#"
+                                                                                                        class="dataTable-sorter">Actions</a>
+                                                </th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for invoice in all_invoices %}
+                                            <tr>
+                                                <td scope="row"><a
+                                                        href="#">#INV-000{{invoice.id}}</a></td>
+                                                <td>{{invoice.patient.user.last_name}} {{invoice.patient.user.first_name}}</td>
+                                                <td>{{invoice.created_at}}</td>
+                                                <td>{{invoice.due_date}}</td>
+                                                <td>Ghc {{invoice.amount}}</td>
+                                                <td>{{invoice.status}}</td>
+                                                <td>
+                                                    <div class="col-sm-10">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected="">Actions</option>
+                                                            <option value="1">Edit</option>
+                                                            <option value="2">Delete</option>
+                                                        </select>
+                                                    </div>
+                                                    </span></td>
+
+
+                                            </tr>
+                                            {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="dataTable-bottom">
+                                        <div class="dataTable-info">Showing 1 to 5 of 5 entries</div>
+                                        <nav class="dataTable-pagination">
+                                            <ul class="dataTable-pagination-list"></ul>
+                                        </nav>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- End All Patients -->
+
+
+                </div>
+            </div><!-- End Left side columns -->
+
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<script src='{% static "assets2/js/admin_home.js" %}'></script>
+
+{% endblock content %}

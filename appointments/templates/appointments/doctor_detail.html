@@ -1,0 +1,74 @@
+<div>
+
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-3">
+                    <img src="{{doctor.user.personal_info.photo.url}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0 pb-2">Dr. {{doctor.user.last_name}} {{doctor.user.first_name}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{doctor.title}}</h6>
+                        {% if doctor.user.rating != null %}
+                            <div><span class="fa fa-star checked"> {{ doctor.user.rating }} Stars</span></div>
+                            {% else %}
+                            <div><span class="fa fa-star checked"> No Stars</span></div>
+                            {% endif %}
+                    </div>
+                </div>
+                <input type="hidden" class="form-control" value="Problem Follow-up">
+            </div>
+        </div>
+
+
+
+    <h5 class="card-title">Available time slot</h5>
+
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+
+                <!-- Accordion without outline borders -->
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+
+                    {% for date in doctor.available_slot.all %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapseOne2" aria-expanded="false"
+                                    aria-controls="flush-collapseOne2">
+                                {{date.slot_date}} <span> | {{date.appointment_time.count}} slots available</span>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne2" class="accordion-collapse collapse"
+                             aria-labelledby="flush-headingOne2" data-bs-parent="#accordionFlushExample" style="">
+                           {% if date.appointment_time != null %}
+                             <div class="accordion-body">
+                                {% for time in date.appointment_time.all %}
+                                 <div>
+                                     <!--
+                                    <h6 class="card-subtitle mb-2 text-muted">Morning</h6>
+                                    -->
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-primary btn-sm">{{time.time}}
+                                        </button>
+                                    </div>
+                                </div>
+                                 {% endfor %}
+
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+
+                </div><!-- End Accordion without outline borders -->
+
+            </div>
+        </div>
+
+    </div>
+</div>

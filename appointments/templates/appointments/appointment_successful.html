@@ -1,0 +1,70 @@
+{% extends "base2pat.html" %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href='{% static "assets2/css/appointment_form.css" %}' rel="stylesheet">
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>New Appointment</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Make an appointment</li>
+                <li class="breadcrumb-item active">Successful</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="card">
+
+        <div id="SuccessForm">
+
+            <h1>Successful</h1>
+
+            <!-- One "tab" for each step in the form: -->
+            <div class="">
+
+                <div class="card-body">
+                    <h5 class="card-title">Your appointment was successful.</h5>
+                    <h6 class="card-subtitle mb-4 text-muted">You will receive a notification once the doctor approves the appointment</h6>
+
+                </div>
+            </div>
+            <!-- One "tab" for each step in the form: -->
+
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                   <div class="">
+                            <div id="continue-home" class="card info-card sales-card app_type_btn app_type_active app-payments">
+                                <div class="card-body text-center pb-0">
+
+                                    <h5 class="card-title"><a class="text-white" href="{% url 'home_page:patient_home' %}">Continue</a></h5>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+
+
+{% endblock %}

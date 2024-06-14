@@ -1,0 +1,319 @@
+{% extends "base2admin.html" %}
+{% load static %}
+{% load get_doctors_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<link href='{% static "assets3/css/profile_view.css" %}' rel="stylesheet">
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Doctor Detail</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">All Doctors</li>
+                <li class="breadcrumb-item active">Doctor Detail</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <div class="content">
+                <div class="row">
+                    <div class="col-sm-7 col-6">
+                        <h4 class="page-title">My Profile</h4>
+                    </div>
+
+                </div>
+                <div class="card-box profile-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-view">
+                                <div class="profile-img-wrap">
+                                    <div class="profile-img">
+                                        <a href="#"><img class="avatar" src="{{doctor_detail.user.personal_info.photo.url}}" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="profile-info-left">
+                                                <h3 class="user-name m-t-0 mb-0">{{doctor_detail.user.last_name}} {{doctor_detail.user.first_name}}</h3>
+                                                <small class="text-muted">{{doctor_detail.title}}</small>
+                                                <div class="staff-id">Employee ID : DR-00{{doctor_detail.id}}</div>
+                                                <div class="staff-msg"><a href="chat.html" class="btn btn-primary">Send Message</a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <ul class="personal-info">
+                                                <li>
+                                                    <span class="title">Phone:</span>
+                                                    <span class="text"><a href="">{{doctor_detail.user.personal_info.phone}}</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Email:</span>
+                                                    <span class="text"><a href="">{{doctor_detail.user.email}}</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Birthday:</span>
+                                                    <span class="text">{{doctor_detail.user.personal_info.dob|date:'Y-m-d'}}</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Address:</span>
+                                                    <span class="text">714 Burwell Heights Road, Bridge City, TX, 77611</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Gender:</span>
+                                                    <span class="text">{{doctor_detail.user.personal_info.gender}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			<div class="card">
+            <div class="card-body">
+
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">About</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Edit Profile</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Settings</button>
+                </li>
+              </ul>
+              <div class="tab-content pt-2" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <h3 class="card-title">Education Informations</h3>
+                            <div class="experience-box">
+                                <ul class="experience-list">
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">International College of Medical Science (UG)</a>
+                                                <div>MBBS</div>
+                                                <span class="time">2001 - 2003</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">International College of Medical Science (PG)</a>
+                                                <div>MD - Obstetrics &amp; Gynaecology</div>
+                                                <span class="time">1997 - 2001</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-box mb-0">
+                            <h3 class="card-title">Experience</h3>
+                            <div class="experience-box">
+                                <ul class="experience-list">
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">Consultant Gynecologist</a>
+                                                <span class="time">Jan 2014 - Present (4 years 8 months)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">Consultant Gynecologist</a>
+                                                <span class="time">Jan 2009 - Present (6 years 1 month)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="experience-user">
+                                            <div class="before-circle"></div>
+                                        </div>
+                                        <div class="experience-content">
+                                            <div class="timeline-content">
+                                                <a href="#/" class="name">Consultant Gynecologist</a>
+                                                <span class="time">Jan 2004 - Present (5 years 2 months)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h3 class="card-title">Basic Information</h3>
+                   <!-- Profile Edit Form -->
+
+                  <form method='POST'>{% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="first_name" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.first_name %}
+                          <input name="first_name" type="text" class="form-control" id="first_name" value="{{user_profile.first_name}}">
+                        {% else %}
+                          <input name="first_name" type="text" class="form-control" id="first_name">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="first_name" class="col-md-4 col-lg-3 col-form-label">Title</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.doctor.title %}
+                          <input name="title" type="text" class="form-control" id="title" value="{{user_profile.doctor.title}}">
+                        {% else %}
+                          <input name="title" type="text" class="form-control" id="title">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                     <div class="row mb-3">
+                      <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.email %}
+                          <input name="email" type="text" class="form-control" id="email" value="{{user_profile.email}}" required>
+                        {% else %}
+                          <input name="email" type="text" class="form-control" id="email" required>
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.phone %}
+                          <input name="phone" type="text" class="form-control" id="phone" value="{{user_profile.personal_info.phone}}">
+                        {% else %}
+                          <input name="phone" type="text" class="form-control" id="phone">
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.country %}
+                          <input name="country" type="text" class="form-control" id="country" value="{{user_profile.personal_info.country}}">
+                        {% else %}
+                          <input name="country" type="text" class="form-control" id="country">
+                        {% endif %}
+                      </div>
+                    </div>
+
+
+                   <div class="row mb-3">
+                      <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="d-block my-3">
+                          {% if user_profile.personal_info.gender == "Male" %}
+                          <div class="custom-control custom-radio">
+                              <input id="male" name="gender" type="radio" class="custom-control-input" value="Male" checked="">
+                              <label class="custom-control-label" for="male">Male</label>
+                          </div>
+
+                          <div class="custom-control custom-radio">
+                              <input id="female" name="gender" type="radio" class="custom-control-input" value="Female" >
+                              <label class="custom-control-label" for="female">Female</label>
+                          </div>
+
+                          {% else %}
+
+                          <div class="custom-control custom-radio">
+                              <input id="male" name="gender" type="radio" class="custom-control-input" value="Male">
+                              <label class="custom-control-label" for="male">Male</label>
+                          </div>
+
+                          <div class="custom-control custom-radio">
+                              <input id="female" name="gender" type="radio" class="custom-control-input" value="Female" checked="">
+                              <label class="custom-control-label" for="female">Female</label>
+                          </div>
+                           {% endif %}
+
+                      </div>
+                      </div>
+                    </div>
+
+                     <div class="row mb-3">
+                      <label for="dob" class="col-md-4 col-lg-3 col-form-label">Date of birth</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="dob" type="date" class="form-control" id="dob" value="{{user_profile.personal_info.dob|date:'Y-m-d'}}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="marital_status" class="col-md-4 col-lg-3 col-form-label">Marital Status</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if user_profile.personal_info.marital_status == True %}
+                        <select name="marital_status" class="custom-select my-1 mr-sm-2" id="marital_status">
+                             <option value="married">Married</option>
+                              <option value="single">Single</option>
+                        </select>
+
+                        {% else %}
+
+                        <select name="marital_status" class="custom-select my-1 mr-sm-2" id="marital_status">
+                          <option value="single">Single</option>
+                             <option value="married">Married</option>
+
+                        </select>
+
+                        {% endif %}
+
+
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
+                </div>
+              </div><!-- End Default Tabs -->
+
+            </div>
+          </div>
+            </div>
+
+
+</main><!-- End #main -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src='{% static "assets3/js/all_doctors_admin.js" %}'></script>
+
+
+{% endblock %}

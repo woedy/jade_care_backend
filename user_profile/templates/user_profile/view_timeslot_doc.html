@@ -1,0 +1,61 @@
+
+{% extends "base2doc.html" %}
+{% load static %}
+
+{% block content %}
+
+ <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>View All Timeslots</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active">View timeslots</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+     <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">View timeslots</h5>
+
+                {% if available_slots %}
+                    {% for date in available_slots %}
+                    <!-- Default Accordion -->
+                    <div class="accordion" id="accordionExample{{date.id}}">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne{{date.id}}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{date.id}}" aria-expanded="false" aria-controls="collapseOne{{date.id}}">
+                      {{date.slot_date}}
+                    </button>
+                  </h2>
+                  <div id="collapseOne{{date.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne{{date.id}}" data-bs-parent="#accordionExample{{date.id}}" style="">
+                    <div class="accordion-body">
+                        <p>Time</p>
+                        {% if date.appointment_time %}
+                            {% for time in date.appointment_time.all %}
+                        <button id="time{{time.time}}" type="button" class="btn btn-primary">{{time.time}}</button>
+
+                         {% endfor %}
+                        {% endif %}
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+                    <!-- End Default Accordion Example -->
+                {% endfor %}
+                {% endif %}
+
+            </div>
+          </div>
+
+        </div>
+
+
+  </main><!-- End #main -->
+{% endblock %}
